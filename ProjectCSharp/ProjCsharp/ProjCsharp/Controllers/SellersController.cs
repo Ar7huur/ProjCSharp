@@ -24,7 +24,7 @@ namespace ProjCsharp.Controllers
         [HttpGet]
         public async Task<IActionResult> obterSellers() { //pega os vendedores 
             if (_context.Sellers != null) {
-                return Json(await _context.SelesRecords.ToListAsync());
+                return Json(await _context.Sellers.ToListAsync());
             }
             return Problem("Problema com o BD, há algo NULL presente no back-end de Sellers.");
         }

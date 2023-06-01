@@ -1,51 +1,46 @@
+//listagem de dados
 $(document).ready(function () {
-    departamentos(); //carrega os departamentos..
+    carregarDadosDep();
 });
-function departamentos() {
-    $.ajax({
-        url: "/Departaments/obterDepartamentos",
-        method: "GET",
-        success: function (departaments) {
-            gerarTab(departaments); //monta a tabela com os dados..
-        }
-    });
-}//"pegarDepartamentID", "Departaments"
 
-function gerarTab(departaments) {
-    var inicio = 0; //valor inicial da tabela
-    var divTabDep = document.getElementById("divTabDep"); //pega o id da tabela..
-    var tab = '<table class="table table-hover" id="tabid">';
-    //criando a tabela
-    tab += '<thead>'; // concatenar a tabela..
+function carregarDadosDep() {
+    $.ajax({
+        url: "/Departaments/PegarTodosDep",
+        methood: "GET",
+        success: function (departamentos) {
+            montarTabela(departamentos);
+        }
+
+    });
+}
+
+function montarTabela(departamentos) {
+    var j = 0;
+    var divTabelaDep = document.getElementById("divTabelaDep");
+    var tab = '<table class="table table-hover">';
+    tab += '<thead>';
     tab += '<tr>';
     tab += '<th scope="col">ID</th>';
     tab += '<th scope="col">Nome do departamento</th>';
     tab += '<th scope="col">Ferramentas</th>';
-    tab += '<th></th>';
     tab += '</tr>';
     tab += '</thead>';
+    tab += '<tbody';
 
-    //corpo da tabela
-    tab += '<tbody>';
-
-    //inserir os dados de sales para alimentar a tabela com infos.
-    for (inicio = 0; inicio < departaments.length; inicio++) {
-        tab += `<tr id="${departaments[inicio].id}">`;
-        tab += `<td>${departaments[inicio].name}</td>`;
-        tab += `<td><button class="btn btn-outline-warning" onclick="obterDepartamentId(${departaments[inicio].depid})">Editar Departamento</button></td> <td><button class="btn btn-outline-danger " onclick="deleteDepartamento(${departaments[inicio].depid})">Deletar departamento</button></td>`;
-        tab += '</tr>'
-    }
+    for (j = 0; j < departamentos.length; j++) {
+        tab += `<tr>`;
+        tab += `<td>${departamentos[j].id}</td>` 
+        tab += `<td>${departamentos[j].name}</td>`;
+        tab += `<td><button class="btn btn-outline-warning" onclick="pegarDepPeloId(${departamentos[j].id})">Editar</button>
+        <button class="btn btn-outline-danger " onclick="excluirDepPeloId(${departamentos[j].id})">Excluir</button></td >`;
+        tab += `</tr>`;
+    } 
     tab += '</tbody>';
-    tab += '</table>'
+    tab += '</table>';
 
-    //aplicando a tabela no HTML
-    divTabDep.innerHTML = tab;
+    divTabelaDep.innerHTML = tab;
 }
- 
-    
 
 
-
-
-
-
+                    
+//modal

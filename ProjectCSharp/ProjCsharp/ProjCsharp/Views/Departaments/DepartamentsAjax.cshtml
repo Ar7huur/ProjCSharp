@@ -4,13 +4,6 @@
 
 }
 
-
-
-
-
-
-
-
 <div class="p-4">
     <div>
         <div class="container">
@@ -18,10 +11,10 @@
                 <div class="row">
                     <div class="col-12"> <h6>Departamentos </h6></div>
                     <div class="col-10">
-                        <button type="button" class="btn btn-outline-info">Novo departamento</button>
+                        <button type="button" class="btn btn-outline-info novoDepartamento">Novo departamento</button>
                     </div>
                     <br><br>
-                    <div class="col-10" id="divTabDep">
+                    <div class="p-3 col-10" id="divTabelaDep">
                     </div>
                 </div>
 
@@ -34,4 +27,25 @@
  
 </div>
 
+<!--Modal-->
+<div id="modal"  class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cadastro de departamentos</h5>
 
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" class="form-control form-control-sm depId" />
+                <label>Nome do departamento</label>
+                <input type="text" class="form-control form-control-sm name"/>
+                <span class="text-danger erroName d-none"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-warning btnSalvar">Salvar</button>
+                <button type="button" class="btn btn-outline-danger"data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

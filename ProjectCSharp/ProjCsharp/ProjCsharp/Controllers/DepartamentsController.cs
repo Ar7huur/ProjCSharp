@@ -24,18 +24,15 @@ namespace ProjCsharp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> obterDepartamentos() { //pega os departamentos
+        public async Task<IActionResult> PegarTodosDep() { //pega os departamentos
             if (_context.Departaments != null) {
                 return Json(await _context.Departaments.ToListAsync());
             }
             return Problem("Problema com o BD, há algo NULL presente no back-end de Departaments.");
         }
 
-  
-
-
         [HttpPost]
-        public async Task<IActionResult> criarDepartamento(Departament departament) { //cria um novo departamento
+        public async Task<IActionResult> novoDepartamento(Departament departament) { //cria um novo departamento
             if (ModelState.IsValid) {
                 _context.Add(departament);
                 await _context.SaveChangesAsync();
@@ -53,7 +50,7 @@ namespace ProjCsharp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> editarDepartament(Departament departament) { //edita os departamentos presentes no sistema
+        public async Task<IActionResult> attDepartament(Departament departament) { //edita os departamentos presentes no sistema
             if (ModelState.IsValid) {
                 _context.Departaments.Update(departament);
                 await _context.SaveChangesAsync();

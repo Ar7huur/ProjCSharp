@@ -38,11 +38,12 @@ function salesrecordsTabela(salesrecords) {
         tab += `<td>${salesrecords[inicio].amount}</td>`;
         tab += `<td>${salesrecords[inicio].sellerId}</td>`;
         
-        tab += `<td><button class="btn btn-outline-warning" onclick="obterSalesRecordsId(${salesrecords[inicio].Id})">Atualizar</button></td><td><button class="btn btn-outline-danger " onclick="deleteSalesRecords(${salesrecords[inicio].Id})">Excluir</button></td>`;
-        tab += '</tr>'
+        tab += `<td><button class="btn btn-outline-warning" onclick="criarDepartamento(${salesrecords[inicio].Id})">Atualizar</button>
+                    <button class="btn btn-outline-danger " onclick="deleteSalesRecords(${salesrecords[inicio].Id})">Excluir</button></td>`;
+        tab += '</tr>';
     }
     tab += '</tbody>';
-    tab += '</table>'
+    tab += '</table>';
 
     //aplicando a tabela no HTML
     divTabela.innerHTML = tab;
