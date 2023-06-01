@@ -18,7 +18,57 @@ namespace ProjCsharp.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> SalesRecordsAjax() {
+            return View();
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> obterRecordVendas() {
+            if (_context.SelesRecords != null) {
+                return Json(await _context.SelesRecords.ToListAsync());
+            }
+            return Problem("Entity set 'DataContext.Categorias'  is null.");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> novoRecordVendas(SalesRecord salesRecords) {
+            if (ModelState.IsValid) {
+                _context.Add(salesRecords);
+                await _context.SaveChangesAsync();
+                return Json(salesRecords);
+            }
+            return Json(ModelState);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> atribuirSelesRecordID(int Id) {
+            SalesRecord salesRecords = await _context.SelesRecords.FindAsync(Id);
+            if (salesRecords != null)
+                return Json(salesRecords);
+            return Json(new { mensagem = "O recorde de vendas desejado ainda não foi atribuido ao BD" });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> renovarRecordVendas(SalesRecord salesRecords) { //att record de vendas
+            if (ModelState.IsValid) {
+                _context.SelesRecords.Update(salesRecords);
+                await _context.SaveChangesAsync();
+                return Json(salesRecords);
+            }
+            return Json(ModelState);
+        }
+        [HttpPost]
+        public async Task<IActionResult> removerRecordVendas(int Id) {
+            SalesRecord salesRecords = await _context.SelesRecords.FindAsync(Id);
+            if (salesRecords != null) {
+                _context.SelesRecords.Remove(salesRecords);
+                await _context.SaveChangesAsync();
+                return Json("O recorde de vendas foi removido com sucesso da implementação!");
+            }
+            return Json(new { mensagem = "O recorde de vendas desejado ainda não foi atribuido ao BD" });
+        }
+
+        //entidade
         // GET: SalesRecords
         public async Task<IActionResult> Index()
         {
