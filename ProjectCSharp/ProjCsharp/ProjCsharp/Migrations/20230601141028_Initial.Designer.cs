@@ -11,8 +11,8 @@ using ProjCsharp.Context;
 namespace ProjCsharp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230531093058_PopularSalesRecord")]
-    partial class PopularSalesRecord
+    [Migration("20230601141028_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

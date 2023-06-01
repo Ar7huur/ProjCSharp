@@ -42,15 +42,15 @@ namespace ProjCsharp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> pegarDepartamentID(int depId) { //departamentos são listados por ID para uma melhor identificação, sendo assim.
-            Departament departament = await _context.Departaments.FindAsync(depId);
+        public async Task<IActionResult> PegarDepartamentID(int id) { //departamentos são listados por ID para uma melhor identificação, sendo assim.
+            Departament departament = await _context.Departaments.FindAsync(id);
             if (departament != null)
                 return Json(departament);
             return Json(new { mensagem = "O departamento que o usuario desejou ainda nao se encontra cadastro no SGBD." });
         }
 
         [HttpPost]
-        public async Task<IActionResult> attDepartament(Departament departament) { //edita os departamentos presentes no sistema
+        public async Task<IActionResult> AttDepartament(Departament departament) { //edita os departamentos presentes no sistema
             if (ModelState.IsValid) {
                 _context.Departaments.Update(departament);
                 await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ namespace ProjCsharp.Controllers
             return Json(ModelState);
         }
         [HttpPost]
-        public async Task<IActionResult> deletarDepartament(int Id) {//departamento são litados por ID, sendo assim, opção viável para exclusão.
+        public async Task<IActionResult> ExcluirDepartament(int Id) {//departamento são litados por ID, sendo assim, opção viável para exclusão.
             Departament departament = await _context.Departaments.FindAsync(Id);
             if (departament != null) {
                 _context.Departaments.Remove(departament);

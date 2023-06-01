@@ -37,13 +37,15 @@
             </div>
 
             <div class="modal-body">
-                <input type="hidden" class="form-control form-control-sm depId" />
-                <label>Nome do departamento</label>
-                <input type="text" class="form-control form-control-sm name"/>
-                <span class="text-danger erroName d-none"></span>
+                <input type="hidden" class="form-control form-control-sm id" />
+                <div>
+                    <label>Nome do departamento</label>
+                    <input type="text" class="form-control form-control-sm name" />
+                    <span class="text-warning erroName d-none"></span>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-warning btnSalvar">Salvar</button>
+                <button type="button" class="btn btn-outline-danger btnSalvar">Salvar</button>
                 <button type="button" class="btn btn-outline-danger"data-bs-dismiss="modal">Cancelar</button>
             </div>
         </div>
