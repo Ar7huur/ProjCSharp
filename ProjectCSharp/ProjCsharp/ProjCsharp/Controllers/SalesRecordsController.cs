@@ -61,7 +61,7 @@ namespace ProjCsharp.Controllers
         public async Task<IActionResult> deletarSalesRecords(int Id) {//recorde de vendas são litados por ID, sendo assim, opção viável para exclusão.
             SalesRecord salesRecords = await _context.SelesRecords.FindAsync(Id);
             if (salesRecords != null) {
-                _context.Departaments.Remove(salesRecords);
+                _context.SelesRecords.Remove(salesRecords);
                 await _context.SaveChangesAsync();
                 return Json("Recorde de venda foi excluido com sucesso pelo usuario");
             }

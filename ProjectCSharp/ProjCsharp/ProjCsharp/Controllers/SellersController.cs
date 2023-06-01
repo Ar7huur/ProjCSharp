@@ -60,7 +60,7 @@ namespace ProjCsharp.Controllers
         public async Task<IActionResult> deletarSellers(int Id) {//recorde de vendas são litados por ID, sendo assim, opção viável para exclusão.
             Seller sellers = await _context.Sellers.FindAsync(Id);
             if (sellers != null) {
-                _context.Departaments.Remove(sellers);
+                _context.Sellers.Remove(sellers);
                 await _context.SaveChangesAsync();
                 return Json("O vendedor foi excluido com sucesso pelo usuario");
             }
