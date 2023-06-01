@@ -6,8 +6,10 @@ namespace ProjCsharp.Models {
         public string Date { get; set; }
         public double Amount { get; set; }
 
-        //associações
         
+
+        //associações
+
         public Seller Seller { get; set; } //associado a vendedores ou seja, cada recorde de vendas possui um único vendedor.
 
         //Construtores..

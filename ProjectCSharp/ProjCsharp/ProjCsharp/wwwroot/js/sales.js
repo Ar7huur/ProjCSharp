@@ -3,10 +3,10 @@ $(document).ready(function () {
 });
 function salesrecords() {
     $.ajax({
-        url: "SalesRecords/obterSalesRecords", //obtem através controller o caminho para retornar os records
+        url: "/SalesRecords/obterSalesRecords", //obtem através controller o caminho para retornar os records
         method: "GET",
-        sucess: function (salesrecords) {
-            gerarTabela(salesrecords); //monta a tabela com os dados..
+        success: function (salesrecords) {
+            salesrecordsTabela(salesrecords); //monta a tabela com os dados..
         }
     });
 }
@@ -18,20 +18,27 @@ function salesrecordsTabela(salesrecords) {
     //criando a tabela
     tab += '<thead>'; // concatenar a tabela..
     tab += '<tr>';
-    tab += '<th scope="col">ID</th>';
+    
     tab += '<th scope="col">Data</th>';
     tab += '<th scope="col">Valor da venda</th>';
+    tab += '<th scope="col">Id do vendedor</th>';
+    tab += '<th scope="col">Ferramentas</th>';
+    tab += '<th></th>';
+    
+    
     tab += '</tr>';
     tab += '</thead>';
     //corpo da tabela
     tab += '<tbody>';
    
     //inserir os dados de sales para alimentar a tabela com infos.
-    for (inicio = 0; inicio < salesrecords.lenght; inicio++) {
+    for (inicio = 0; inicio < salesrecords.length; inicio++) {
         tab += `<tr id="${salesrecords[inicio].Id}">`;
-        tab += `<td>${salesrecords[inicio].Date}</td>`;
-        tab += `<td>${salesrecords[inicio].Amount}</td>`;
-        tab += `<td><button class="btn btn-outline-warning" onclick="obterSalesRecordsId(${salesrecords[inicio].Id})">Atualizar</button></td>`;  `<td><button class="btn btn-outline-danger " onclick="deleteSalesRecords(${salesrecords[inicio].Id})">Excluir</button></td>`;
+        tab += `<td>${salesrecords[inicio].date}</td>`;
+        tab += `<td>${salesrecords[inicio].amount}</td>`;
+        tab += `<td>${salesrecords[inicio].sellerId}</td>`;
+        
+        tab += `<td><button class="btn btn-outline-warning" onclick="obterSalesRecordsId(${salesrecords[inicio].Id})">Atualizar</button></td><td><button class="btn btn-outline-danger " onclick="deleteSalesRecords(${salesrecords[inicio].Id})">Excluir</button></td>`;
         tab += '</tr>'
     }
     tab += '</tbody>';

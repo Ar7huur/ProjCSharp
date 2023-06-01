@@ -31,6 +31,9 @@ namespace ProjCsharp.Controllers
             return Problem("Problema com o BD, há algo NULL presente no back-end de Departaments.");
         }
 
+  
+
+
         [HttpPost]
         public async Task<IActionResult> criarDepartamento(Departament departament) { //cria um novo departamento
             if (ModelState.IsValid) {
@@ -42,8 +45,8 @@ namespace ProjCsharp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> pegarDepartamentID(int Id) { //departamentos são listados por ID para uma melhor identificação, sendo assim.
-            Departament departament = await _context.Departaments.FindAsync(Id);
+        public async Task<IActionResult> pegarDepartamentID(int depId) { //departamentos são listados por ID para uma melhor identificação, sendo assim.
+            Departament departament = await _context.Departaments.FindAsync(depId);
             if (departament != null)
                 return Json(departament);
             return Json(new { mensagem = "O departamento que o usuario desejou ainda nao se encontra cadastro no SGBD." });
