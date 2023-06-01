@@ -18,7 +18,57 @@ namespace ProjCsharp.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> SellersAjax() {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> obterSellers() { //pega os vendedores 
+            if (_context.Sellers != null) {
+                return Json(await _context.SelesRecords.ToListAsync());
+            }
+            return Problem("Problema com o BD, há algo NULL presente no back-end de Sellers.");
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> criarSellers(Seller sellers) { //cria um novo vendedor
+            if (ModelState.IsValid) {
+                _context.Add(sellers);
+                await _context.SaveChangesAsync();
+                return Json(sellers);
+            }
+            return Json(ModelState);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> pegarSellersID(int Id) { //vendedores são listados por ID para uma melhor identificação, sendo assim.
+            Seller sellers = await _context.Sellers.FindAsync(Id);
+            if (sellers != null)
+                return Json(sellers);
+            return Json(new { mensagem = "O vendedor que o usuario desejou ainda nao se encontra cadastrado no SGBD." });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> editarSellers(Seller sellers) { //edita os vendedores presentes no sistema
+            if (ModelState.IsValid) {
+                _context.Sellers.Update(sellers);
+                await _context.SaveChangesAsync();
+                return Json(sellers);
+            }
+            return Json(ModelState);
+        }
+        [HttpPost]
+        public async Task<IActionResult> deletarSellers(int Id) {//recorde de vendas são litados por ID, sendo assim, opção viável para exclusão.
+            Seller sellers = await _context.Sellers.FindAsync(Id);
+            if (sellers != null) {
+                _context.Departaments.Remove(sellers);
+                await _context.SaveChangesAsync();
+                return Json("O vendedor foi excluido com sucesso pelo usuario");
+            }
+            return Json(new { mensagem = "O vendedor nao foi encontrado, sendo assim, impossível a sua remoção!" });
+        }
+
+
+        //end
         // GET: Sellers
         public async Task<IActionResult> Index()
         {

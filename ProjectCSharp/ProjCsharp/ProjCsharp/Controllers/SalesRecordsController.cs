@@ -23,15 +23,15 @@ namespace ProjCsharp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> obterRecordVendas() {
+        public async Task<IActionResult> obterSalesRecords() { //pega os recordes de vendas
             if (_context.SelesRecords != null) {
                 return Json(await _context.SelesRecords.ToListAsync());
             }
-            return Problem("Entity set 'DataContext.Categorias'  is null.");
+            return Problem("Problema com o BD, há algo NULL presente no back-end de Sales Records.");
         }
 
         [HttpPost]
-        public async Task<IActionResult> novoRecordVendas(SalesRecord salesRecords) {
+        public async Task<IActionResult> criarSalesRecords(SalesRecord salesRecords) { //cria um novo recorde de venda que ocorreu
             if (ModelState.IsValid) {
                 _context.Add(salesRecords);
                 await _context.SaveChangesAsync();
@@ -41,15 +41,15 @@ namespace ProjCsharp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> atribuirSelesRecordID(int Id) {
+        public async Task<IActionResult> pegarSalesRecordsID(int Id) { //recorde de vendas são listados por ID para uma melhor identificação, sendo assim.
             SalesRecord salesRecords = await _context.SelesRecords.FindAsync(Id);
             if (salesRecords != null)
                 return Json(salesRecords);
-            return Json(new { mensagem = "O recorde de vendas desejado ainda não foi atribuido ao BD" });
+            return Json(new { mensagem = "O recorde de venda que o usuario desejou ainda nao se encontra cadastrado no SGBD." });
         }
 
         [HttpPost]
-        public async Task<IActionResult> renovarRecordVendas(SalesRecord salesRecords) { //att record de vendas
+        public async Task<IActionResult> editarSalesRecords(SalesRecord salesRecords) { //edita os recordes de vendas presentes no sistema
             if (ModelState.IsValid) {
                 _context.SelesRecords.Update(salesRecords);
                 await _context.SaveChangesAsync();
@@ -58,17 +58,17 @@ namespace ProjCsharp.Controllers
             return Json(ModelState);
         }
         [HttpPost]
-        public async Task<IActionResult> removerRecordVendas(int Id) {
+        public async Task<IActionResult> deletarSalesRecords(int Id) {//recorde de vendas são litados por ID, sendo assim, opção viável para exclusão.
             SalesRecord salesRecords = await _context.SelesRecords.FindAsync(Id);
             if (salesRecords != null) {
-                _context.SelesRecords.Remove(salesRecords);
+                _context.Departaments.Remove(salesRecords);
                 await _context.SaveChangesAsync();
-                return Json("O recorde de vendas foi removido com sucesso da implementação!");
+                return Json("Recorde de venda foi excluido com sucesso pelo usuario");
             }
-            return Json(new { mensagem = "O recorde de vendas desejado ainda não foi atribuido ao BD" });
+            return Json(new { mensagem = "O recorde de venda nao foi encontrado, sendo assim, impossível a sua remoção!" });
         }
 
-        //entidade
+        //Ent
         // GET: SalesRecords
         public async Task<IActionResult> Index()
         {
